@@ -3,7 +3,7 @@ from tkinter import *
 import tkinter.ttk as ttk
 from tkinter import filedialog
 import tkinter.messagebox as msgbox
-from PIL import Image
+from PIL import Image, ImageTk
 import time
 
 
@@ -133,28 +133,34 @@ def start():
     ## 이미지 합치기 (시작버튼이 눌러졌을 때)
     merge_image()    # 별도 정의
 
-############## 옵션 적용하기 ################
-
-
-
-
-
-
 
 ################### 레이아웃 깔기 #################
 
 root = Tk()
 root.title("Image Merge")
 
+# 백그라운드 배경 그림 넣기
+IMAGE_PATH = "bg.png"
+C = Canvas(root, bg="blue", height=10, width=100)
+filename1 = ImageTk.PhotoImage(Image.open(IMAGE_PATH))
+background_label = Label(root, image=filename1)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
+C.pack()
+
+root.wm_attributes("-transparentcolor", 'grey')
+
+
 # 파일 프레임 (파일 추가, 선택 삭제)
 
 file_frame = Frame(root)
 file_frame.pack(fill="x", padx=5, pady=5)
 
-btn_add_file = Button(file_frame, text="add file", padx=5, pady=5, width=12, command=add_file)
+btn_add_file = Button(file_frame, text="add file", padx=5, pady=5, width=12, command=add_file, bg="yellow")
 btn_add_file.pack(side = "left")
-btn_del_file = Button(file_frame, text="remove file", padx=5, pady=5, width=12, command=del_file)
+btn_del_file = Button(file_frame, text="remove file", padx=5, pady=5, width=12, command=del_file, bg="yellow")
 btn_del_file.pack(side = "right")
+
+
 
 # 리스트 프레임 만들기 + 스크롤바 연동
 list_frame = Frame(root)
